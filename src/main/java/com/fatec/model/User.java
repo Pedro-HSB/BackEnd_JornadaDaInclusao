@@ -1,28 +1,28 @@
 package com.fatec.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Builder;
 import lombok.Data;
 
-
 /**
  * Classe que representa o modelo de dados do Usuário no sistema.
- * Anotada como um documento do MongoDB com a coleção "user".
+ * Anotada como uma entidade JPA.
  */
 @Data
 @Builder
-@Document("user")
+@Entity
 public class User {
 
-    // Identificador único do usuário, gerado automaticamente pelo MongoDB.
+    // Identificador único do usuário, gerado automaticamente pelo PostgreSQL.
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     // Nome do responsável pelo usuário.
     // Campo obrigatório.
@@ -40,6 +40,4 @@ public class User {
     @NotBlank(message = "O atributo senha é obrigatório.")
     @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
     private String senha;
-
-
 }
